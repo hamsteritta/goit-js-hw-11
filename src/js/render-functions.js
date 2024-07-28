@@ -1,7 +1,7 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-export function render(imgList) {
+export function renderGallery(imgList) {
   const galleryBox = document.querySelector('.gallery');
   const renderItems = imgList
     .map(

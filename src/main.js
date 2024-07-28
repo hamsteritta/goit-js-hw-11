@@ -1,5 +1,5 @@
-import { findImg } from './js/pixabay-api';
-import { render } from './js/render-functions';
+import { pixabayFind } from './js/pixabay-api';
+import { renderGallery } from './js/render-functions';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import './css/styles.css';
@@ -9,23 +9,23 @@ const gallery = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
 
 form.addEventListener('submit', (event) => {
-    event.preventDefault();
+  event.preventDefault();
   const q = event.currentTarget.elements.searchQuery.value.toLowerCase();
 
-  if (q == '') {
+  if (q === '') {
     iziToast.error({
       title: 'Error',
       message: 'Please enter a search query!',
     });
     return;
-    }
+  }
 
-    loader.classList.add('loader-show');
-    loader.classList.add('gallery-hide');
+  loader.classList.add('loader-show');
+  loader.classList.add('gallery-hide');
     
-    gallery.innerHTML = '';
+  gallery.innerHTML = '';
     
-  findImg(q)
+  pixabayFind(q)
     .then(data => {
       if (data.hits.length === 0) {
         iziToast.info({
@@ -34,7 +34,7 @@ form.addEventListener('submit', (event) => {
             'Sorry, there are no images matching your search query. Please try again!',
         });
       } else {
-        render(data.hits);
+        renderGallery(data.hits);
       }
     }).catch(error => {
       iziToast.error({
